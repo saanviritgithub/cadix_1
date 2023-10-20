@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Class Reservation System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .schedule {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .schedule th, .schedule td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .schedule th {
+            background-color: #f2f2f2;
+        }
+
+        .schedule tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .schedule tr:hover {
+            background-color: #ddd;
+        }
+
+        form {
+            margin-top: 20px;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Our Gym</h1>
+
+    <h2>Class Schedule</h2>
+    <table class="schedule">
+        <tr>
+            <th>Class</th>
+            <th>Time</th>
+            <th>Available Spots</th>
+        </tr>
+         <tr>
+            <td>Body Building</td>
+            <td>10:00 AM - 11:00 AM</td>
+            <td id="bodybuilding-spots">15</td>
+        </tr>
+        <tr>
+            <td>Power Lifting</td>
+            <td>11:30 AM - 12:30 PM</td>
+            <td id="powerlifting-spots">10</td>
+        </tr>
+        <tr>
+            <td>Cardio</td>
+            <td>1:00 PM - 2:00 PM</td>
+            <td id="cardio-spots">20</td>
+        </tr>
+        <tr>
+            <td>Zumba</td>
+            <td>3:00 PM - 4:00 PM</td>
+            <td id="zumba-spots">18</td>
+        </tr>
+        <tr>
+            <td>Cross-Fit</td>
+            <td>4:30 PM - 5:30 PM</td>
+            <td id="crossfit-spots">12</td>
+        </tr>
+        <tr>
+            <td>Acrobatics</td>
+            <td>6:00 PM - 7:00 PM</td>
+            <td id="acrobatics-spots">10</td>
+        </tr>
+        <tr>
+            <td>Pilates</td>
+            <td>7:30 PM - 8:30 PM</td>
+            <td id="pilates-spots">15</td>
+        </tr>
+        <tr>
+            <td>Yoga</td>
+            <td>9:00 PM - 10:00 PM</td>
+            <td id="yoga-spots">20</td>
+        </tr>
+    </table>
+
+    <h2>Gym Reservation Form</h2>
+    <form>
+        <label for="class">Select Class:</label>
+        <select id="class" required>
+    <option value="Body Building">Body Building</option>
+    <option value="Power Lifting">Power Lifting</option>
+    <option value="Cardio">Cardio</option>
+    <option value="Zumba">Zumba</option>
+    <option value="Cross-Fit">Cross-Fit</option>
+    <option value="Acrobatics">Acrobatics</option>
+    <option value="Pilates">Pilates</option>
+    <option value="Yoga">Yoga</option>
+	</select><br>
+
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" required><br>
+
+        <button type="button" onclick="reserveSpot()">Reserve Spot</button>
+    </form>
+
+    <script>
+       function reserveSpot() {
+
+  // Get values
+  const selectedClass = document.getElementById("class").value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+
+  // Validation
+  if (!name || !email || !phone) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  // Get spots element
+  const classId = selectedClass.replace(/\s/g, '') // Remove spaces
+                                     .replace(/[^a-zA-Z0-9]/g, '') // Remove special chars
+                                     .toLowerCase(); // Lowercase
+
+  const classSpots = document.getElementById(classId + "-spots");
+
+  // Update spots
+  if (classSpots.textContent > 0) {
+    classSpots.textContent--;
+    alert(selectedClass + " class booked successfully!");
+  } else {
+    alert("Sorry, the " + selectedClass + " class is fully booked.");
+  }
+
+}
+    </script>
+</body>
+
+</html>
